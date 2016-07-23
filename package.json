@@ -4,7 +4,8 @@
   "description": "验证码倒计时",
   "main": "./lib/verification-code.countdown.min.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "push": "git push origin master"
   },
   "repository": {
     "type": "git",

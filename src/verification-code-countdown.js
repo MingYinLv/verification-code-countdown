@@ -12,7 +12,7 @@
         start: 59,  //开始数字
         end: 0,     //结束数字
         disabledCls: 'disabled',    //倒计时中的class
-        inText: '重发(${i}秒)',   //倒计时进行中显示文字
+        inText: '重发({i}秒)',   //倒计时进行中显示文字
         callback: function () {
         }      //点击dom后的回调函数
         //text: '获取验证码'       //倒计时完成正常显示的验证码，默认为初始化之前的文字
@@ -66,11 +66,12 @@
         /**
          * 点击dom
          */
-        var startClick = function () {
+        var startClick = function (e) {
             var that = config.dom, clsName = that.className;
             //根据类名判断是否在倒计时，如果不在，则开始倒计时
             if (clsName.indexOf(config.disabledCls) < 0) {
-                config.callback();
+                config.callback(e, that);
+                that.className += ' ' + config.disabledCls;
             }
         };
         /**
@@ -79,12 +80,14 @@
         var start = function () {
             var curr = config.start, end = config.end, dom = config.dom, inText = config.inText;
             num++;  //验证码获取次数加一
-            dom.className += ' ' + config.disabledCls;
-            dom.innerHTML = inText.replace('${i}', curr);
+            if (dom.className.indexOf(config.disabledCls) < 0) {
+                dom.className += ' ' + config.disabledCls;
+            }
+            dom.innerHTML = inText.replace('{i}', curr);
             setTimeout(function loop() {
                 curr--;
                 if (curr > end) {   //如果当前数字大于结束数字，继续倒计时
-                    dom.innerHTML = inText.replace('${i}', curr);
+                    dom.innerHTML = inText.replace('{i}', curr);
                     setTimeout(loop, 1000);
                 } else {    //如果当前数字小于等于结束数字，倒计时完成
                     //删除样式
