@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0,minimum-scale=1.0">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Verification-code-countdown</title>
+
+</head>
+<body>
+
+<div style="margin:100px auto;">
+    <button id="btn">获取验证码</button>
+</div>
+<script src="./src/verification-code-countdown.js"></script>
+<script>
+    var btn = document.getElementById('btn');
+
+    var VCCD = window.VCCD;
+
+    var verifyCode = VCCD({
+        dom: btn,
+        start: 5
+    });
+
+
+</script>
+</body>
+</html>

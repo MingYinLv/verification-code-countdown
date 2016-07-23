@@ -1,0 +1,13 @@
+{
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "camelcase": 1,
+    "curly": 1,
+    "brace-style": [1, "1tbs"],
+    "quotes": [1,"single"],
+    "semi": [1, "always"],
+    "space-infix-ops": 1
+  }
+}
