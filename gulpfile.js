@@ -17,6 +17,9 @@ gulp.task('default',function(){
         .pipe(eslint({configFle:"./.eslintrc"})) //使用你的eslint校验文件
         .pipe(eslint.format())
         .pipe(uglify())
-        .pipe(rename('*.min.js'))
+        .pipe(rename(function (path) {
+            path.extname = ".min.js";
+            return path;
+        }))
         .pipe(gulp.dest('./lib'))
 });

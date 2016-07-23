@@ -16,14 +16,17 @@
 <script src="./src/verification-code-countdown.js"></script>
 <script>
     var btn = document.getElementById('btn');
-
     var VCCD = window.VCCD;
-
     var verifyCode = VCCD({
         dom: btn,
-        start: 5
+        start: 5,
+        text : '继续获取',
+        callback: function(){
+            setTimeout(function(){
+                verifyCode.start();
+            },1000);
+        }
     });
-
 
 </script>
 </body>
