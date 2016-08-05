@@ -4,7 +4,7 @@
     } else if (typeof exports === 'object') {
         module.exports = factory;
     } else {
-        root.verificationCodeCountdown = root.VCCD = factory();
+        root.verificationCodeCountdown = root.VCCD = root.countDown = factory();
     }
 })(window, function () {
     //初始化参数
@@ -18,15 +18,17 @@
         //text: '获取验证码'       //倒计时完成正常显示的验证码，默认为初始化之前的文字
     };
     /**
-     * 替换属性
-     * @param target 目标对象
-     * @param source 源对象
+     * 合并对象
      */
-    var extend = function (target, source) {
-        for (var i in source) {
-            target[i] = source[i];
+    var extend = function () {
+        var _obj = arguments[0];
+        for (var i = 1, max = arguments.length; i < max; i++) {
+            var _temp = arguments[i];
+            for (var k in _temp) {
+                _obj[k] = _temp[k];
+            }
         }
-        return target;
+        return _obj;
     };
 
     /**
@@ -61,7 +63,7 @@
      * @param _config 配置参数
      */
     return function (_config) {
-        var config = extend(defaults, _config);
+        var config = extend({},defaults, _config);
         var num = 0; //验证码获取次数
         /**
          * 点击dom
@@ -77,7 +79,7 @@
         /**
          * 开始倒计时
          */
-        var start = function () {
+        var success = function () {
             var curr = config.start, end = config.end, dom = config.dom, inText = config.inText;
             num++;  //验证码获取次数加一
             if (dom.className.indexOf(config.disabledCls) < 0) {
@@ -95,6 +97,14 @@
                     dom.innerHTML = config.text;
                 }
             }, 1000);
+        };
+
+        /**
+         * 获取验证码失败
+         */
+        var failed = function () {
+            var dom = config.dom;
+            dom.className = dom.className.replace(config.disabledCls, '');
         };
 
         /**
@@ -121,7 +131,11 @@
         init();
         return {
             destroy: destroy,
-            start: start,
+            success: success,
+            failed:failed,
+            getDom: function () {
+                return config.dom;
+            },
             getNum: function () {
                 return num;
             }

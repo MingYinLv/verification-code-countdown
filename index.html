@@ -12,6 +12,7 @@
 
 <div style="margin:100px auto;">
     <button id="btn">获取验证码</button>
+    <button id="btn1">获取验证码</button>
 </div>
 <script src="./src/verification-code-countdown.js"></script>
 <script>
@@ -23,7 +24,17 @@
         text : '继续获取',
         callback: function(){
             setTimeout(function(){
-                verifyCode.start();
+                verifyCode.success();
+            },1000);
+        }
+    });
+    var verifyCode1 = VCCD({
+        dom: document.getElementById('btn1'),
+        start: 5,
+        text : '继续获取',
+        callback: function(){
+            setTimeout(function(){
+                verifyCode1.failed();
             },1000);
         }
     });
