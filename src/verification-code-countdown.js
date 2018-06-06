@@ -72,8 +72,8 @@
             var that = config.dom, clsName = that.className;
             //根据类名判断是否在倒计时，如果不在，则开始倒计时
             if (clsName.indexOf(config.disabledCls) < 0) {
-                config.callback(e, that);
                 that.className += ' ' + config.disabledCls;
+                config.callback(e, that);
             }
         };
         /**
